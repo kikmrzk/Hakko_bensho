@@ -124,14 +124,44 @@ const ConstitutionDiagnosisApp = () => {
     setStep('results');
   };
 
+  const getAgeGenderAdvice = (age, gender) => {
+    const ageNum = parseInt(age);
+    const advice = [];
+
+    if (gender === '女性') {
+      if (ageNum >= 40 && ageNum < 60) {
+        advice.push('更年期に入る時期です。ホルモンバランスの変化に注意し、不調を感じたら早めに相談しましょう。');
+      } else if (ageNum >= 60) {
+        advice.push('骨密度の低下に注意が必要です。カルシウムとビタミンDを意識的に摂取しましょう。');
+      } else {
+        advice.push('生理不順や生理痛が続く場合は、体質改善とともに専門医への相談をお勧めします。');
+      }
+    }
+
+    if (gender === '男性') {
+      if (ageNum >= 40) {
+        advice.push('生活習慣病のリスクが高まる年齢です。定期的な健康診断を受けましょう。');
+      }
+    }
+
+    if (ageNum >= 60) {
+      advice.push('体力の維持と、慢性疾患の予防・管理が重要です。無理のない範囲で運動習慣を続けましょう。');
+    } else if (ageNum >= 40) {
+      advice.push('生活習慣の見直しが重要な時期です。今からの養生が将来の健康を左右します。');
+    } else {
+      advice.push('若いうちからの体質改善と予防が、将来の健康につながります。');
+    }
+
+    return advice;
+  };
+
   const constitutionTypes = {
     jitsu_netsu: {
       name: '実証 × 熱証',
       color: 'from-red-500 to-orange-500',
       description: '体力があり、体に熱がこもりやすいタイプ。エネルギッシュで活動的だが、炎症を起こしやすい傾向があります。',
       characteristics: ['体力が旺盛で精力的', '暑がりで汗をかきやすい', '声が大きく、話し方も力強い', '顔色が赤い、血色が良い', '食欲旺盛', '便秘になりやすい', 'イライラしやすい', '肌に炎症が起きやすい'],
-      symptoms: ['便秘', '高血圧', '頭痛', 'ニキビ・吹き出物', '口内炎', '目の充血', '肩こり', '不眠', 'のぼせ'],
-      diseases: ['高血圧', '糖尿病', '脂質異常症', '痛風', '脳卒中', '心筋梗塞', '胃炎', '痔', '肥満'],
+      healthRisks: ['便秘', '高血圧', '頭痛', 'ニキビ・吹き出物', '口内炎', '目の充血', '肩こり', '不眠', 'のぼせ', '糖尿病', '脂質異常症', '痛風', '脳卒中', '心筋梗塞', '胃炎', '痔', '肥満'],
       advice: ['食べ過ぎ、飲み過ぎに注意する', '辛いものやアルコールを控える', '十分な水分補給を心がける', '激しい運動より、適度な有酸素運動を', 'ストレス管理を意識する', '早寝早起きの規則正しい生活を', '塩分、脂質の過剰摂取を控える'],
       dietary: {
         good: ['体を冷やす野菜（トマト、きゅうり、レタス、セロリ）', '緑黄色野菜', '海藻類', '豆腐などの大豆製品', '白身魚', 'そば', '果物（適量）', '緑茶（適量）'],
@@ -144,8 +174,7 @@ const ConstitutionDiagnosisApp = () => {
       color: 'from-red-500 to-blue-500',
       description: '体力はあるものの、冷えやすいタイプ。エネルギーは充実しているが、血行不良や冷えによる不調が出やすい傾向があります。',
       characteristics: ['体力はあるが冷え性', '筋肉質だが手足が冷たい', '食欲はあるが冷たいものは苦手', '声は大きいが温かい飲み物を好む', '便秘と冷えが同時にある', '肩こりや腰痛がある', '生理痛が重い（女性の場合）'],
-      symptoms: ['手足の冷え', '便秘', '肩こり', '腰痛', '生理痛', '頭痛', 'むくみ', '関節痛'],
-      diseases: ['高血圧', '冷え性', '生理不順', '子宮筋腫', '関節炎', '痔', '腰痛症', '肩こり症'],
+      healthRisks: ['手足の冷え', '便秘', '肩こり', '腰痛', '生理痛', '頭痛', 'むくみ', '関節痛', '高血圧', '冷え性', '生理不順', '子宮筋腫', '関節炎', '痔', '腰痛症', '肩こり症'],
       advice: ['体を温める食事を心がける', '適度な運動で血行を促進する', '入浴で体を温める（湯船にゆっくり浸かる）', '冷房の効きすぎに注意', 'ストレッチで血流を改善する', '腹巻きや靴下で保温する', '食べ過ぎには注意しながらバランスよく'],
       dietary: {
         good: ['温かい食事', '根菜類（ごぼう、人参、れんこん）', '生姜、ニンニク、ネギ', '味噌、納豆などの発酵食品', '青魚（サバ、イワシ）', '鶏肉（適量）', 'シナモン、山椒などのスパイス', '温かいお茶（ほうじ茶、紅茶）'],
@@ -158,8 +187,7 @@ const ConstitutionDiagnosisApp = () => {
       color: 'from-blue-500 to-orange-500',
       description: '体力が乏しく、微熱や炎症を起こしやすいタイプ。疲れやすいのに体に熱がこもり、不快な症状が出やすい傾向があります。',
       characteristics: ['疲れやすいが体が火照る', '手のひらや足の裏が熱い', '口が渇くが水をあまり飲めない', '夕方から夜に微熱が出やすい', '寝汗をかきやすい', '顔が赤いが体力はない', '不眠や浅い眠り', 'イライラしやすい'],
-      symptoms: ['微熱', '寝汗', '手足のほてり', '口の渇き', '不眠', 'めまい', '目の乾燥', '慢性疲労', '喉の渇き'],
-      diseases: ['慢性疲労症候群', '更年期障害', '自律神経失調症', '不眠症', '貧血', '甲状腺機能異常', 'ドライアイ', '口内炎'],
+      healthRisks: ['微熱', '寝汗', '手足のほてり', '口の渇き', '不眠', 'めまい', '目の乾燥', '慢性疲労', '喉の渇き', '慢性疲労症候群', '更年期障害', '自律神経失調症', '不眠症', '貧血', '甲状腺機能異常', 'ドライアイ', '口内炎'],
       advice: ['無理をせず、十分な休息を取る', '睡眠時間を確保する（7-8時間）', '体を適度に冷やす食材を摂る', '辛いものやアルコールを避ける', 'ストレスをためない', '激しい運動は避け、ヨガなど穏やかな運動を', '夜更かしを避ける'],
       dietary: {
         good: ['体を冷やす野菜（トマト、きゅうり）', '消化の良い食事', '良質なタンパク質（白身魚、豆腐）', '黒ゴマ、クコの実', '山芋、百合根', '果物（梨、リンゴ）', '緑茶（適量）', '少量ずつ頻繁に食べる'],
@@ -172,8 +200,7 @@ const ConstitutionDiagnosisApp = () => {
       color: 'from-blue-500 to-cyan-500',
       description: '体力が乏しく、冷えやすいタイプ。最も養生が必要なタイプで、温めと栄養補給を重視する必要があります。',
       characteristics: ['非常に疲れやすい', '常に体が冷えている', '手足が冷たい', '声が小さく弱々しい', '食欲がない、食が細い', '下痢しやすい', '風邪をひきやすい', '顔色が青白い'],
-      symptoms: ['慢性疲労', '手足の冷え', 'めまい', '息切れ', '下痢', '腹痛', '頻尿', '貧血', '生理不順', 'むくみ'],
-      diseases: ['貧血', '低血圧', '低体温症', '胃腸障害', '免疫力低下', '慢性疲労症候群', '神経衰弱', '生理不順', '不妊症', '栄養失調'],
+      healthRisks: ['慢性疲労', '手足の冷え', 'めまい', '息切れ', '下痢', '腹痛', '頻尿', '貧血', '生理不順', 'むくみ', '低血圧', '低体温症', '胃腸障害', '免疫力低下', '慢性疲労症候群', '神経衰弱', '不妊症', '栄養失調'],
       advice: ['無理は絶対に避け、十分な休息を取る', '睡眠時間を確保する（8時間以上）', '体を温めることを最優先にする', '消化の良い温かい食事を心がける', '冷たいものは避ける', '入浴で体を温める（長めの入浴）', '腹巻き、靴下、レッグウォーマーで保温', '軽い散歩から始め、無理な運動は避ける'],
       dietary: {
         good: ['温かい食事（常に温めて食べる）', '消化の良いもの', '根菜類（人参、大根、ごぼう、れんこん）', '生姜、ニンニク、ネギ', '味噌、納豆などの発酵食品', '良質なタンパク質（白身魚、鶏肉、卵）', 'シナモン、山椒などのスパイス', '温かいお茶（ほうじ茶、紅茶、生姜湯）', '少量ずつ頻繁に食べる', 'よく噛んで食べる'],
@@ -269,6 +296,8 @@ const ConstitutionDiagnosisApp = () => {
   if (step === 'results' && results) {
     const constitution = constitutionTypes[results.type];
     const ageGroup = parseInt(userInfo.age) < 40 ? '若年層' : parseInt(userInfo.age) < 60 ? '中年層' : '高齢層';
+    const ageGenderAdvice = getAgeGenderAdvice(userInfo.age, userInfo.gender);
+    
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-6 pb-20">
         <div className="max-w-4xl mx-auto">
@@ -301,93 +330,90 @@ const ConstitutionDiagnosisApp = () => {
 
           <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
             <div className="bg-orange-50 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-bold text-orange-800 mb-3">⚠️ 出やすい症状</h3>
+              <h3 className="text-lg font-bold text-orange-800 mb-3">⚠️ 注意すべき健康リスク</h3>
               <div className="grid md:grid-cols-3 gap-2">
-                {constitution.symptoms.map((symptom, index) => (
+                {constitution.healthRisks.map((risk, index) => (
                   <div key={index} className="flex items-center">
                     <span className="text-orange-600 mr-2">•</span>
-                    <span className="text-gray-700">{symptom}</span>
+                    <span className="text-gray-700">{risk}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-red-50 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-bold text-red-800 mb-3">🏥 かかりやすい病気</h3>
-              <div className="grid md:grid-cols-3 gap-2">
-                {constitution.diseases.map((disease, index) => (
-                  <div key={index} className="flex items-center">
-                    <span className="text-red-600 mr-2">•</span>
-                    <span className="text-gray-700">{disease}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-6">
-              <h3 className="text-lg font-bold text-blue-800 mb-3">💡 生活習慣のアドバイス</h3>
+            <div className="bg-purple-50 rounded-lg p-6 mb-6">
+              <h3 className="text-lg font-bold text-purple-800 mb-3">👤 あなたへのアドバイス</h3>
               <ul className="space-y-2">
-                {constitution.advice.map((item, index) => (
+                {ageGenderAdvice.map((item, index) => (
                   <li key={index} className="flex items-start">
-                    <span className="text-blue-600 mr-2">▸</span>
+                    <span className="text-purple-600 mr-2">▸</span>
                     <span className="text-gray-700">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">食生活のアドバイス</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-lg font-bold text-green-700 mb-3">積極的に摂りたい食品</h3>
-                <ul className="space-y-2">
-                  {constitution.dietary.good.map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-green-600 mr-2">✓</span>
-                      <span className="text-gray-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-red-700 mb-3">避けたい食品</h3>
-                <ul className="space-y-2">
-                  {constitution.dietary.avoid.map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-red-600 mr-2">✗</span>
-                      <span className="text-gray-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-red-50 border-2 border-red-200 rounded-lg shadow-lg p-8 mb-6">
-            <h2 className="text-2xl font-bold text-red-800 mb-4">⚠️ 四毒について - 特に気をつけたい食品</h2>
-            <ul className="space-y-2 mb-6">
-              {constitution.fourPoisons.map((poison, index) => (
-                <li key={index} className="flex items-start bg-white p-3 rounded">
-                  <AlertCircle className="text-red-600 mr-2 flex-shrink-0 mt-1" size={20} />
-                  <span className="text-gray-700">{poison}</span>
+            <div className="bg-blue-50 rounded-lg p-6">
+              <h3 className="text-lg font-bold text-blue-800 mb-3">💡 生活習慣のアドバイス</h3>
+<ul className="space-y-2">
+{constitution.advice.map((item, index) => (
+<li key={index} className="flex items-start">
+<span className="text-blue-600 mr-2">▸</span>
+<span className="text-gray-700">{item}</span>
+</li>
+))}
+</ul>
+</div>
+</div>
+      <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">食生活のアドバイス</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-lg font-bold text-green-700 mb-3">積極的に摂りたい食品</h3>
+            <ul className="space-y-2">
+              {constitution.dietary.good.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span className="text-gray-700">{item}</span>
                 </li>
               ))}
             </ul>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4">
-              <p className="font-bold text-red-900 mb-2">全ての体質タイプに共通する最重要事項</p>
-              <p className="text-red-800"><strong>質の悪い植物性油脂</strong>（トランス脂肪酸を含むマーガリン、ショートニング、酸化した古い油など）は、どの体質タイプの方にも悪影響を及ぼします。必ず避けましょう。</p>
-            </div>
           </div>
-
-          <button onClick={() => { setStep('intro'); setAnswers({}); setResults(null); setUserInfo({ age: '', gender: '' }); }} className="w-full bg-gray-600 text-white py-3 rounded-lg font-bold hover:bg-gray-700 transition">もう一度診断する</button>
+          <div>
+            <h3 className="text-lg font-bold text-red-700 mb-3">避けたい食品</h3>
+            <ul className="space-y-2">
+              {constitution.dietary.avoid.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="text-red-600 mr-2">✗</span>
+                  <span className="text-gray-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    );
-  }
 
-  return null;
+      <div className="bg-red-50 border-2 border-red-200 rounded-lg shadow-lg p-8 mb-6">
+        <h2 className="text-2xl font-bold text-red-800 mb-4">⚠️ 四毒について - 特に気をつけたい食品</h2>
+        <ul className="space-y-2 mb-6">
+          {constitution.fourPoisons.map((poison, index) => (
+            <li key={index} className="flex items-start bg-white p-3 rounded">
+              <AlertCircle className="text-red-600 mr-2 flex-shrink-0 mt-1" size={20} />
+              <span className="text-gray-700">{poison}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="bg-red-100 border-l-4 border-red-600 p-4">
+          <p className="font-bold text-red-900 mb-2">全ての体質タイプに共通する最重要事項</p>
+          <p className="text-red-800"><strong>質の悪い植物性油脂</strong>（トランス脂肪酸を含むマーガリン、ショートニング、酸化した古い油など）は、どの体質タイプの方にも悪影響を及ぼします。必ず避けましょう。</p>
+        </div>
+      </div>
+
+      <button onClick={() => { setStep('intro'); setAnswers({}); setResults(null); setUserInfo({ age: '', gender: '' }); }} className="w-full bg-gray-600 text-white py-3 rounded-lg font-bold hover:bg-gray-700 transition">もう一度診断する</button>
+    </div>
+  </div>
+);
+}
+return null;
 };
-
 export default ConstitutionDiagnosisApp;
