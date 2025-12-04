@@ -226,7 +226,7 @@ const ConstitutionDiagnosisApp = () => {
 
   if (step === 'intro') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-6 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-4 sm:p-6 relative overflow-hidden">
         {/* 和紙テクスチャ効果 */}
         <div className="absolute inset-0 opacity-30" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E")`
@@ -240,57 +240,41 @@ const ConstitutionDiagnosisApp = () => {
           <YinYangSymbol />
         </div>
 
-        <div className="max-w-2xl mx-auto relative z-10">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border-2 border-amber-200">
+        <div className="w-full max-w-full sm:max-w-2xl mx-auto relative z-10 px-4 sm:px-0">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 mx-4 border-2 border-amber-200 w-full">
             <div className="text-center mb-6">
               <h1 className="text-4xl font-bold text-amber-900 mb-2" style={{fontFamily: "'Noto Serif JP', serif"}}>
-                八綱弁証 体質診断
+                体質診断
               </h1>
-              <div className="flex justify-center gap-4 mt-4 text-amber-700">
+              <div className="grid grid-cols-2 gap-2 mt-4 text-amber-700 max-w-md mx-auto">
                 <div className="flex items-center gap-2">
-                  <Zap size={24} />
-                  <span className="text-sm">陽・実</span>
+                  <Droplet size={16} />
+    <Snowflake size={16} />
+                  <span className="text-sm">虚×寒</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Droplet size={24} />
-                  <span className="text-sm">陰・虚</span>
+                  <Droplet size={16} />
+    <Sun size={16} />
+                  <span className="text-sm">虚×熱</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sun size={24} />
-                  <span className="text-sm">熱</span>
+                  <Zap size={16} />
+    <Snowflake size={16} />
+                  <span className="text-sm">実×寒</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Snowflake size={24} />
-                  <span className="text-sm">寒</span>
+                  <Zap size={16} />
+    <Sun size={16} />
+                  <span className="text-sm">実×熱</span>
                 </div>
               </div>
             </div>
             
             <p className="text-amber-800 mb-6 text-center" style={{fontFamily: "'Noto Serif JP', serif"}}>
-              東洋医学の診断方法「八綱弁証」に基づいて、あなたの体質を診断します。
+              あなたの体質を診断します。
             </p>
             
-            <div className="bg-amber-50/50 rounded-xl p-6 mb-6 border border-amber-200">
-              <h2 className="text-xl font-bold text-amber-900 mb-3" style={{fontFamily: "'Noto Serif JP', serif"}}>四つの体質タイプ</h2>
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <div className="w-32 font-bold text-amber-800">実証（じっしょう）</div>
-                  <div className="flex-1 text-amber-700">体力があり、エネルギーが充実しているタイプ</div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-32 font-bold text-amber-800">虚証（きょしょう）</div>
-                  <div className="flex-1 text-amber-700">体力が乏しく、疲れやすいタイプ</div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-32 font-bold text-amber-800">熱証（ねっしょう）</div>
-                  <div className="flex-1 text-amber-700">体に熱がこもりやすく、炎症を起こしやすいタイプ</div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-32 font-bold text-amber-800">寒証（かんしょう）</div>
-                  <div className="flex-1 text-amber-700">冷えやすく代謝が低いタイプ</div>
-                </div>
-              </div>
-            </div>
+            
 
             <div className="mb-6">
               <h3 className="text-lg font-bold text-amber-900 mb-4" style={{fontFamily: "'Noto Serif JP', serif"}}>基本情報を入力してください</h3>
@@ -322,13 +306,13 @@ const ConstitutionDiagnosisApp = () => {
     const currentQuestionIndex = Object.keys(answers).length;
     const currentQuestion = questions[currentQuestionIndex];
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-6 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-4 sm:p-6 relative overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 opacity-30" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E")`
         }}></div>
         
-        <div className="max-w-2xl mx-auto relative z-10">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border-2 border-amber-200">
+        <div className="w-full max-w-2xl relative z-10 px-3 mx-auto">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 border-2 border-amber-200">
             <div className="mb-6">
               <div className="flex justify-between text-sm text-amber-800 mb-2">
                 <span>質問 {currentQuestionIndex + 1} / {questions.length}</span>
@@ -358,12 +342,12 @@ const constitution = constitutionTypes[results.type];
 const ageGroup = parseInt(userInfo.age) < 40 ? '若年層' : parseInt(userInfo.age) < 60 ? '中年層' : '高齢層';
 const ageGenderAdvice = getAgeGenderAdvice(userInfo.age, userInfo.gender);
 return (
-  <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-6 pb-20 relative overflow-hidden">
+  <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-stone-100 p-4 sm:p-6 pb-20 relative overflow-hidden flex justify-center">
     <div className="absolute inset-0 opacity-30" style={{
       backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E")`
     }}></div>
     
-    <div className="max-w-4xl mx-auto relative z-10">
+    <div className="w-full max-w-4xl mx-auto relative z-10 px-2 sm:px-0">
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-6 border-2 border-amber-200">
         <div className="flex justify-between items-start mb-6">
           <h1 className="text-3xl font-bold text-amber-900" style={{fontFamily: "'Noto Serif JP', serif"}}>診断結果</h1>
